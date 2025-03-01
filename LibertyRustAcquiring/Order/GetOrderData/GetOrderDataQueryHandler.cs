@@ -1,11 +1,12 @@
 ﻿using LibertyRustAcquiring.Data;
+using LibertyRustAcquiring.Order.GetOrderData;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibertyRustAcquiring.Order.GetOrderPrice
 {
-    public class GetOrderPriceQueryHandler(ApplicationDbContext context) : IRequestHandler<GetOrderPriceQuery, decimal>
+    public class GetOrderDataQueryHandler(ApplicationDbContext context) : IRequestHandler<GetOrderDataQuery, GetOrderDataResponse>
     {
-        public async Task<decimal> Handle(GetOrderPriceQuery request, CancellationToken cancellationToken)
+        public async Task<GetOrderDataResponse> Handle(GetOrderDataQuery request, CancellationToken cancellationToken)
         {
             var groupedPacks = request.Packs
                 .GroupBy(id => id)
@@ -14,6 +15,7 @@ namespace LibertyRustAcquiring.Order.GetOrderPrice
 
             var packs = await context.Packs
                 .Where(p => request.Packs.Contains(p.Id))
+                .Include(p => p.Items)
                 .ToListAsync(cancellationToken);
 
             decimal totalPrice = groupedPacks.Sum(g =>
@@ -28,7 +30,15 @@ namespace LibertyRustAcquiring.Order.GetOrderPrice
                 return pack.Price * g.Quantity;
             });
 
-            return totalPrice;
+            packs = packs
+                .Where(p => p.Type is Models.Enums.PackType.Resource)
+                .ToList();
+
+            var totalItems = (from gp in groupedPacks
+                              join p in packs on gp.PackId equals p.Id
+                              select p.Items!.Count * gp.Quantity).Sum();
+
+            return new GetOrderDataResponse(totalItems, totalPrice);
         }
     }
 }

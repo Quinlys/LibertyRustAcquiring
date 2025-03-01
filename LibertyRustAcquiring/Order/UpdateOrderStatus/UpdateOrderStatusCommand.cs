@@ -2,9 +2,9 @@
 {
     public class UpdateOrderStatusCommand : IRequest<UpdateOrderStatusResult>
     {
-        public string OrderId { get; }
+        public Guid OrderId { get; }
         public string Status { get; }
-        public UpdateOrderStatusCommand(string orderId, string status)
+        public UpdateOrderStatusCommand(Guid orderId, string status)
         {
             OrderId = orderId;
             Status = status;

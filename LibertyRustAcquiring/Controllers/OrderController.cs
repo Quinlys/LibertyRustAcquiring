@@ -4,14 +4,12 @@ using LibertyRustAcquiring.Order.UpdateOrderStatus;
 using LibertyRustAcquiring.DTOs.Monobank;
 using LibertyRustAcquiring.Order.GetOrderPrice;
 using System.Text.Json;
-using LibertyRustAcquiring.Exceptions;
 using LibertyRustAcquiring.Order.FindOrderByInvoiceId;
 using System.Security.Cryptography;
 using System.Text;
 using LibertyRustAcquiring.Order.GetOrders;
 using LibertyRustAcquiring.Models.Constants;
-using LibertyRustAcquiring.Utils;
-using LibertyRustAcquiring.Player.CheckOnLine;
+using LibertyRustAcquiring.Player.CheckPlayer;
 
 namespace LibertyRustAcquiring.Controllers
 {
@@ -68,13 +66,17 @@ namespace LibertyRustAcquiring.Controllers
                 .Select(int.Parse)
                 .ToList();
 
-            if (!packIds.Any()) return BadRequest("No packs was sent to process the payment");           
+            if (!packIds.Any()) return BadRequest("No packs were sent to process the payment");           
 
-            var calculatedPrice = await _sender.Send(new GetOrderPriceQuery(packIds));
+            var orderData = await _sender.Send(new GetOrderDataQuery(packIds));
+
+            var checkPlayer = await _sender.Send(new CheckPlayerQuery(request.SteamId, request.Server, orderData.TotalItems));
+
+            if(!checkPlayer.IsSuccess) return BadRequest("Player is offline on the selected server or player don't have enough of free space.");
 
             var requestContent = JsonContent.Create(new CreateInvoiceRequest
             {
-                Amount = (long)calculatedPrice * 100,
+                Amount = (long)orderData.TotalPrice * 100,
                 Ccy = int.Parse(_configuration["Monobank:Ccy"]!),
                 RedirectUrl = _configuration["Monobank:RedirectUrl"]!,
                 WebhookUrl = _configuration["Monobank:WebhookUrl"]!,
@@ -172,7 +174,7 @@ namespace LibertyRustAcquiring.Controllers
 
             if(order.Status != OrderStatuses.Success)
             {
-                var updateResult = await _sender.Send(new UpdateOrderStatusCommand(order.Id.ToString(), payload.Status));
+                var updateResult = await _sender.Send(new UpdateOrderStatusCommand(order.Id, payload.Status));
 
                 if (!updateResult.IsSuccess)
                 {

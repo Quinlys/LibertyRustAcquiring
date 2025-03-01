@@ -19,7 +19,7 @@ namespace LibertyRustAcquiring.Order.UpdateOrderStatus
             try
             {
                 await context.Orders
-                    .Where(x => x.Id.ToString() == request.OrderId)
+                    .Where(x => x.Id == request.OrderId)
                     .ExecuteUpdateAsync(o =>
                         o.SetProperty(x => x.Status, request.Status));
 
@@ -27,7 +27,7 @@ namespace LibertyRustAcquiring.Order.UpdateOrderStatus
 
                 if (request.Status == "success")
                 {
-                    await SendPacks(request.OrderId.ToString(), cancellationToken);
+                    await SendPacks(request.OrderId, cancellationToken);
                     logger.LogInformation("[UpdateOrderStatusCommandHandler] Sending packs. OrderId: {orderId}", request.OrderId);
                 }
 
@@ -41,11 +41,11 @@ namespace LibertyRustAcquiring.Order.UpdateOrderStatus
                 return new UpdateOrderStatusResult(false);
             }
         }
-        private async Task SendPacks(string orderId, CancellationToken cancellationToken)
+        private async Task SendPacks(Guid orderId, CancellationToken cancellationToken)
         {
             var order = await context.Orders
                 .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.Id.ToString() == orderId);
+                .FirstOrDefaultAsync(x => x.Id == orderId);
 
             if (order is null)
             {
