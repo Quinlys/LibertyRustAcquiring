@@ -36,7 +36,7 @@ namespace LibertyRustAcquiring.Order.GetOrderPrice
 
             var totalItems = (from gp in groupedPacks
                               join p in packs on gp.PackId equals p.Id
-                              select p.Items!.Count * gp.Quantity).Sum();
+                              select p.Items!.Count).Sum();
 
             return new GetOrderDataResponse(totalItems, totalPrice);
         }

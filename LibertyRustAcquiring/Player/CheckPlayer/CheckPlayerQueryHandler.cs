@@ -13,7 +13,7 @@ namespace LibertyRustAcquiring.Player.CheckPlayer
             var server = new ServerInfo
             {
                 Hostname = configuration[$"{request.Server}:Ip"]! ?? throw new ObjectIsNullException<ServerInfo>(),
-                RconPort = configuration[$"{request.Server}:Post"]! ?? throw new ObjectIsNullException<ServerInfo>(),
+                RconPort = configuration[$"{request.Server}:Port"]! ?? throw new ObjectIsNullException<ServerInfo>(),
                 RconPassword = configuration[$"{request.Server}:Password"]! ?? throw new ObjectIsNullException<ServerInfo>()
             };
 

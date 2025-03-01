@@ -13,7 +13,7 @@
 
         public static string UnclockSkinsCommand(string steamId)
         {
-            return $"addgroup {steamId} SkinsALL 30d";
+            return $"addgroup {steamId} SkinsALL 30d"; //TO DO: add field quantity for increased duration
         }
 
         public static string UnlockBlueprints(string steamId) 

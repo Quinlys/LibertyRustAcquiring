@@ -57,6 +57,8 @@ namespace LibertyRustAcquiring.Controllers
             //    return BadRequest($"Player with SteamId: {request.SteamId} is offline on server: {request.Server}."); 
             //}
 
+            
+
             using var client = _httpClientFactory.CreateClient();
 
             var baseUrl = _configuration["Monobank:BaseAddress"] ?? "https://api.monobank.ua/api/merchant";
