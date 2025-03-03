@@ -1,6 +1,6 @@
-﻿namespace LibertyRustAcquiring.DTOs
+﻿using LibertyRustAcquiring.Models.Enums;
+
+namespace LibertyRustAcquiring.DTOs
 {
-    public class GetPackResponse
-    {
-    }
+    public record GetPackResponse(int Id, string Name, string Details, string Image, decimal Price, PackType Type);
 }

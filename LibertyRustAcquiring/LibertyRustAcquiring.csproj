@@ -22,7 +22,6 @@
     <Folder Include="Packs\CreatePack\" />
     <Folder Include="Packs\UpdatePack\" />
     <Folder Include="Packs\DeletePack\" />
-    <Folder Include="Packs\GetPack\" />
   </ItemGroup>
 
 </Project>

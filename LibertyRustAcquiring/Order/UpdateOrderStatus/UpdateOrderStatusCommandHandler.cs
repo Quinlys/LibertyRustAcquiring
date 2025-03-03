@@ -74,8 +74,7 @@ namespace LibertyRustAcquiring.Order.UpdateOrderStatus
                 var pack = packs.FirstOrDefault(p => p.Id == group.PackId);
                 if (pack is null || pack.Items is null)
                 {
-                    logger.LogWarning("Pack with Id {PackId} not found while sending commands", group.PackId);
-                    continue;
+                    throw new ObjectIsNullException<Pack>();
                 }
 
                 string command = string.Empty;
@@ -90,7 +89,7 @@ namespace LibertyRustAcquiring.Order.UpdateOrderStatus
                             command = RustCommands.AddPrivelegeCommand(order.SteamId, item.Name, item.Quantity * group.Quantity);
                             break;
                         case ItemType.Skins:
-                            command = RustCommands.UnclockSkinsCommand(order.SteamId);
+                            command = RustCommands.UnclockSkinsCommand(order.SteamId, 30 * group.Quantity);
                             break;
                         case ItemType.Blueprints:
                             command = RustCommands.UnlockBlueprints(order.SteamId);

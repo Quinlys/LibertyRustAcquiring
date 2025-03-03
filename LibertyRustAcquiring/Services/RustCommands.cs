@@ -11,9 +11,9 @@
             return $"addgroup {steamId} {item} {duration}d";
         }
 
-        public static string UnclockSkinsCommand(string steamId)
+        public static string UnclockSkinsCommand(string steamId, int duration)
         {
-            return $"addgroup {steamId} SkinsALL 30d"; //TO DO: add field quantity for increased duration
+            return $"addgroup {steamId} SkinsALL {duration}d";
         }
 
         public static string UnlockBlueprints(string steamId) 

@@ -55,47 +55,7 @@ namespace LibertyRustAcquiring.Order.CreateOrder
 
                 await context.SaveChangesAsync();
 
-                await context.Database.CurrentTransaction!.CommitAsync();
-
-                //var server = new ServerInfo
-                //{
-                //    Hostname = configuration[$"{request.Server}:Ip"]!,
-                //    RconPort = configuration[$"{request.Server}:Port"]!,
-                //    RconPassword = configuration[$"{request.Server}:Password"]!
-                //};
-
-                //foreach (var group in groupedPacks)
-                //{
-                //    var pack = packs.FirstOrDefault(p => p.Id == group.PackId);
-                //    if (pack is null)
-                //    {
-                //        logger.LogWarning("Pack with Id {PackId} not found while sending commands", group.PackId);
-                //        continue;
-                //    }
-
-                //    string command = string.Empty;
-                //    foreach (var item in pack.Items)
-                //    {
-                //        switch (item.ItemType)
-                //        {
-                //            case ItemType.Resource:
-                //                command = RustCommands.AddItemCommand(request.SteamId, item.Name, item.Quantity * group.Quantity);
-                //                break;
-                //            case ItemType.Privilege:
-                //                command = RustCommands.AddPrivelegeCommand(request.SteamId, item.Name, item.Quantity * group.Quantity);
-                //                break;
-                //            case ItemType.Skins:
-                //                command = RustCommands.AddItemCommand(request.SteamId, item.Name, item.Quantity * group.Quantity);
-                //                break;
-                //            case ItemType.Blueprints:
-                //                command = RustCommands.UnlockBlueprints(request.SteamId);
-                //                break;
-                //            default:
-                //                break;
-                //        }
-                //        var result = await connection.SendCommand(server, command);
-                //    }
-                //}
+                await context.Database.CurrentTransaction!.CommitAsync();               
 
                 return new CreateOrderResult(true);
             }

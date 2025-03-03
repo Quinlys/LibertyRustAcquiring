@@ -1,10 +1,7 @@
-﻿using System.Text.Json.Serialization;
+﻿using LibertyRustAcquiring.Models.Enums;
 
 namespace LibertyRustAcquiring.DTOs
 {
-    //public record GetPacksResponse
-    //(
-    // 
-    //);
-    
+    public record GetPacksResponse(int Id, string Name, string Description, string Image, decimal Price, PackType Type);
+
 }

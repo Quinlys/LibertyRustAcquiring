@@ -9,7 +9,6 @@ using System.Security.Cryptography;
 using System.Text;
 using LibertyRustAcquiring.Order.GetOrders;
 using LibertyRustAcquiring.Models.Constants;
-using LibertyRustAcquiring.Player.CheckPlayer;
 
 namespace LibertyRustAcquiring.Controllers
 {
@@ -50,15 +49,6 @@ namespace LibertyRustAcquiring.Controllers
         [HttpPost("create-invoice")]
         public async Task<IActionResult> CreateInvoice([FromBody] CreateOrderRequest request)
         {
-            //var check = await _sender.Send(new CheckPlayerOnlineQuery(request.SteamId, request.Server));
-
-            //if (!check.IsSuccess) 
-            //{ 
-            //    return BadRequest($"Player with SteamId: {request.SteamId} is offline on server: {request.Server}."); 
-            //}
-
-            
-
             using var client = _httpClientFactory.CreateClient();
 
             var baseUrl = _configuration["Monobank:BaseAddress"] ?? "https://api.monobank.ua/api/merchant";
@@ -70,11 +60,10 @@ namespace LibertyRustAcquiring.Controllers
 
             if (!packIds.Any()) return BadRequest("No packs were sent to process the payment");           
 
-            var orderData = await _sender.Send(new GetOrderDataQuery(packIds));
+            var orderData = await _sender.Send(new GetOrderDataQuery(request.Server, request.SteamId, packIds));
 
-            var checkPlayer = await _sender.Send(new CheckPlayerQuery(request.SteamId, request.Server, orderData.TotalItems));
+            if (!orderData.CanBeCreated) return BadRequest("Order cannot be created since player choosed packs that he cannot purchase while having not enough space in inventory or being offline.");
 
-            if(!checkPlayer.IsSuccess) return BadRequest("Player is offline on the selected server or player don't have enough of free space.");
 
             var requestContent = JsonContent.Create(new CreateInvoiceRequest
             {

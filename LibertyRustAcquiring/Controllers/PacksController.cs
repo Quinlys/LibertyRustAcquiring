@@ -1,4 +1,5 @@
-﻿using LibertyRustAcquiring.Packs.GetPacks;
+﻿using LibertyRustAcquiring.Packs.GetPack;
+using LibertyRustAcquiring.Packs.GetPacks;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibertyRustAcquiring.Controllers
@@ -13,9 +14,16 @@ namespace LibertyRustAcquiring.Controllers
             _sender = sender;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] string? culture = "ua")
         {
-            var result = await _sender.Send(new GetPacksQuery());
+            var result = await _sender.Send(new GetPacksQuery(culture));
+
+            return Ok(result);
+        }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id, [FromQuery] string culture = "ua")
+        {
+            var result = await _sender.Send(new GetPackQuery(id, culture));
 
             return Ok(result);
         }
