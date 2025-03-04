@@ -98,6 +98,8 @@ namespace LibertyRustAcquiring.Order.UpdateOrderStatus
                             break;
                     }
                     var result = await connection.SendCommand(server, command);
+
+                    logger.LogInformation("OrderId: {orderId}. Executed command: {command}. Result: {result}", orderId, command, result);
                 }
             }
         }
