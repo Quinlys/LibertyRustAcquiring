@@ -60,9 +60,15 @@ namespace LibertyRustAcquiring.Controllers
 
             if (!packIds.Any()) return BadRequest("No packs were sent to process the payment");           
 
-            var orderData = await _sender.Send(new GetOrderDataQuery(request.Server, request.SteamId, packIds));
+            var orderData = await _sender.Send(new GetPreOrderDataQuery(request.Server, request.SteamId, packIds));
 
-            if (!orderData.CanBeCreated) return BadRequest("Order cannot be created since player choosed packs that he cannot purchase while having not enough space in inventory or being offline.");
+            if (!orderData.CanBeCreated) return BadRequest(
+                new GetPreOrderResponse
+                { 
+                    Message = "Order cannot be created since player choosed packs that he cannot purchase while having not enough space in inventory or being offline.",
+                    Notify = orderData.ErrorCaused
+                }
+            );
 
 
             var requestContent = JsonContent.Create(new CreateInvoiceRequest
@@ -113,7 +119,7 @@ namespace LibertyRustAcquiring.Controllers
                 return BadRequest("Empty signature.");
             }
 
-            string pubKeyPem;
+            //string pubKeyPem;
 
             //try
             //{

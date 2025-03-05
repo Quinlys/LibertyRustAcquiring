@@ -1,4 +1,5 @@
 ﻿using LibertyRustAcquiring.Data;
+using LibertyRustAcquiring.Models.Enums;
 using LibertyRustAcquiring.Order.GetOrderData;
 using LibertyRustAcquiring.Settings;
 using LibertyRustAcquiring.Utils;
@@ -6,13 +7,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LibertyRustAcquiring.Order.GetOrderPrice
 {
-    public class GetOrderDataQueryHandler(
+    public class GetPreOrderDataQueryHandler(
         ApplicationDbContext context,
         IConfiguration configuration,
         IServerConnection connection,
-        ILogger<GetOrderDataQueryHandler> logger) : IRequestHandler<GetOrderDataQuery, GetOrderDataResponse>
+        ILogger<GetPreOrderDataQueryHandler> logger) : IRequestHandler<GetPreOrderDataQuery, GetPreOrderDataResponse>
     {
-        public async Task<GetOrderDataResponse> Handle(GetOrderDataQuery request, CancellationToken cancellationToken)
+        public async Task<GetPreOrderDataResponse> Handle(GetPreOrderDataQuery request, CancellationToken cancellationToken)
         {
             var groupedPacks = request.Packs
                 .GroupBy(id => id)
@@ -48,11 +49,12 @@ namespace LibertyRustAcquiring.Order.GetOrderPrice
                               join p in resourcePacks on gp.PackId equals p.Id
                               select p.Items!.Count).Sum();
 
-            bool canBeCreated = await CanCreateAnOrder(request.Server, request.SteamId, totalItems, packs);
+            var canBeCreated = await CanCreateAnOrder(request.Server, request.SteamId, totalItems, packs);
 
-            return new GetOrderDataResponse(totalItems, totalPrice, canBeCreated);
+            return new GetPreOrderDataResponse(totalItems, totalPrice, canBeCreated.IsSuccess, canBeCreated.ErrorCaused != ValidationFailedStatus.None ? $"notify{canBeCreated.ErrorCaused}" : string.Empty);
         }
-        private async Task<bool> CanCreateAnOrder(string server, string steamId, int items, List<Pack> packs)
+        private record CanCreateAnOrderResult(bool IsSuccess, ValidationFailedStatus? ErrorCaused = ValidationFailedStatus.None);
+        private async Task<CanCreateAnOrderResult> CanCreateAnOrder(string server, string steamId, int items, List<Pack> packs)
         {
             var serverInfo = new ServerInfo
             {
@@ -66,36 +68,15 @@ namespace LibertyRustAcquiring.Order.GetOrderPrice
 
             if (packs.Where(x => x.Type == Models.Enums.PackType.Resource).ToList().Count > 0 && !slots)
             {
-                return false;
+                return new CanCreateAnOrderResult(false, ValidationFailedStatus.NotEnoughSpaceInInventory);
             }
-            else
+
+            if (packs.Where(x => x.Type == Models.Enums.PackType.Blueprints).ToList().Count > 0 && !online)
             {
-                bool result = false;
-                foreach (var pack in packs)
-                {
-                    switch (pack.Type)
-                    {
-                        case Models.Enums.PackType.Resource:
-                            result = (online is false || slots is false) ? false : true;
-                            break;
-
-                        case Models.Enums.PackType.Blueprints:
-                            result = (online is false) ? false : true;
-                            break;
-
-                        case Models.Enums.PackType.Privilege:
-                            result = true;
-                            break;
-
-                        case Models.Enums.PackType.Skins:
-                            result = true;
-                            break;
-                    }
-                    if (result is false) return false;
-                }
-                return true;
+                return new CanCreateAnOrderResult(false, ValidationFailedStatus.PlayerIsOffline);
             }
-                     
+
+            return new CanCreateAnOrderResult(true);                   
         }
         private async Task<bool> CheckPlayerOnline(ServerInfo server, string steamId)
         {
