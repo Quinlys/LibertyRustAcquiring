@@ -13,15 +13,15 @@ namespace LibertyRustAcquiring.Controllers
         {
             _sender = sender;
         }
-        [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] string? culture = "ua")
+        [HttpPost]
+        public async Task<IActionResult> GetAll([FromQuery] GetPacksRequest request)
         {
-            var result = await _sender.Send(new GetPacksQuery(culture));
+            var result = await _sender.Send(new GetPacksQuery(request.Culture));
 
             return Ok(result);
         }
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id, [FromQuery] string culture = "ua")
+        [HttpPost("{id}")]
+        public async Task<IActionResult> GetById(int id, [FromQuery] string culture)
         {
             var result = await _sender.Send(new GetPackQuery(id, culture));
 

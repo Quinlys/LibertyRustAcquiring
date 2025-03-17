@@ -12,10 +12,11 @@ namespace LibertyRustAcquiring.Models.Entities
         public string DetailsENG { get; set; }
         public string Description { get; set; }
         public string DescriptionENG { get; set; }
-        public string Image { get; set; }
         public decimal Price { get; set; }
+        public decimal SalePrice { get; set; }
         public PackType Type { get; set; }
 
         public List<PackItem>? Items { get; set; }
+        public List<string> Images { get; set; }
     }
 }

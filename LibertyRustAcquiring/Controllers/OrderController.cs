@@ -64,7 +64,7 @@ namespace LibertyRustAcquiring.Controllers
 
             if (!orderData.CanBeCreated) return BadRequest(
                 new GetPreOrderResponse
-                { 
+                {
                     Message = "Order cannot be created since player choosed packs that he cannot purchase while having not enough space in inventory or being offline.",
                     Notify = orderData.ErrorCaused
                 }
@@ -179,6 +179,8 @@ namespace LibertyRustAcquiring.Controllers
                     return BadRequest("Failed to update order.");
                 }
             }
+
+            _logger.LogError("Payment error, status: {status}", payload.Status);
             
             return Ok("Webhook processed successfully.");
         }

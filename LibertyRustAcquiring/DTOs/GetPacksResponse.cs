@@ -2,6 +2,6 @@
 
 namespace LibertyRustAcquiring.DTOs
 {
-    public record GetPacksResponse(int Id, string Name, string Description, string Image, decimal Price, PackType Type);
+    public record GetPacksResponse(int Id, string Name, string Description, List<string> Image, List<decimal> Price, PackType Type);
 
 }

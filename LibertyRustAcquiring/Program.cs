@@ -34,16 +34,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(opts =>
 
 builder.Services.AddCors(options =>
 
-    //options.AddPolicy("AllowAll", policy =>
-    //{
-    //    policy
-    //        .AllowAnyOrigin()
-    //        .AllowAnyHeader()
-    //        .AllowAnyMethod();
-    //})
     options.AddDefaultPolicy(policy =>
     {
-        policy.WithOrigins(/*"http://test.liberty-rust.com.ua/"*/"http://localhost:5173");
+        //policy.WithOrigins(/*"http://test.liberty-rust.com.ua/"*//*"http://localhost:5173"*/);
+        policy.AllowAnyOrigin();
         policy.AllowAnyHeader();
         policy.AllowAnyMethod();
         //policy.AllowCredentials();

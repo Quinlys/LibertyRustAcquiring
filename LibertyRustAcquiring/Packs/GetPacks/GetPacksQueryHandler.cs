@@ -21,8 +21,10 @@ namespace LibertyRustAcquiring.Packs.GetPacks
                         ? x.Description
                         : x.DescriptionENG,
 
-                    x.Image,
-                    x.Price,
+                    x.Images,
+
+                    new List<decimal> { x.SalePrice, x.Price },
+
                     x.Type)
                 )
                 .ToListAsync();

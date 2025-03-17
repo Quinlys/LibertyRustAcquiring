@@ -19,11 +19,14 @@ namespace LibertyRustAcquiring.Packs.GetPack
                         : x.NameENG,
 
                     request.Culture == "ua"
+
                         ? x.Details
                         : x.DetailsENG,
 
-                    x.Image,
-                    x.Price,
+                    x.Images,
+
+                    new List<decimal> {x.SalePrice, x.Price },
+
                     x.Type)
                 )
                 .FirstAsync();

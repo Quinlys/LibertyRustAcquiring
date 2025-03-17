@@ -50,8 +50,8 @@ namespace LibertyRustAcquiring.Order.GetOrderPrice
                               select p.Items!.Count).Sum();
 
             var canBeCreated = await CanCreateAnOrder(request.Server, request.SteamId, totalItems, packs);
-
-            return new GetPreOrderDataResponse(totalItems, totalPrice, canBeCreated.IsSuccess, canBeCreated.ErrorCaused != ValidationFailedStatus.None ? $"notify{canBeCreated.ErrorCaused}" : string.Empty);
+            string errorCaused = canBeCreated is null ? "Cannot establish connection with the game server" : canBeCreated.ErrorCaused != ValidationFailedStatus.None ? $"notify{canBeCreated.ErrorCaused}" : string.Empty;
+            return new GetPreOrderDataResponse(totalItems, totalPrice, canBeCreated.IsSuccess, errorCaused);
         }
         private record CanCreateAnOrderResult(bool IsSuccess, ValidationFailedStatus? ErrorCaused = ValidationFailedStatus.None);
         private async Task<CanCreateAnOrderResult> CanCreateAnOrder(string server, string steamId, int items, List<Pack> packs)
