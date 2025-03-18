@@ -26,13 +26,13 @@ builder.WebHost.ConfigureKestrel((context, options) =>
     var httpsConfig = kestrelConfig.GetSection("Https");
     var httpsUrl = httpsConfig["Url"];
     var certPath = httpsConfig["Certificate:Path"];
-    var keyPath = httpsConfig["Certificate:KeyPath"];
+    var certPassword = httpsConfig["Certificate:Password"];
 
-    if (!string.IsNullOrEmpty(httpsUrl) && !string.IsNullOrEmpty(certPath) && !string.IsNullOrEmpty(keyPath))
+    if (!string.IsNullOrEmpty(httpsUrl) && !string.IsNullOrEmpty(certPath) && !string.IsNullOrEmpty(certPassword))
     {
         options.ListenAnyIP(new Uri(httpsUrl).Port, listenOptions =>
         {
-            listenOptions.UseHttps(certPath, keyPath);
+            listenOptions.UseHttps(certPath, certPassword);
         });
     }
 });
@@ -148,12 +148,7 @@ app.MapPost("/send-command", async (IConfiguration configuration, RconCommandReq
         RconPassword = configuration[$"{request.ServerName}:Password"] ?? throw new ObjectIsNullException<ServerInfo>(),
     };
 
-    //var serverInfo = new ServerInfo
-    //{
-    //    Hostname = "168.100.161.151",
-    //    RconPort = "28069",
-    //    RconPassword = "Leberty"
-    //};
+    
 
     var response = await server.SendCommand(serverInfo, request.Command);
 
