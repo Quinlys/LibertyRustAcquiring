@@ -29,6 +29,21 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
+    //"Kestrel": {
+    //  "commandName": "Project",
+    //  "Endpoints": {
+    //    "Http": {
+    //      "Url": "https://localhost:6060"
+    //    },
+    //    "Https": {
+    //      "Url": "https://localhost:6061",
+    //      "Certificate": {
+    //        "Path": "/etc/ssl/certs/selfsigned.pfx",
+    //        "Password": "aboba"
+    //      }
+    //    }
+    //  }
+    //},
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
