@@ -17,12 +17,6 @@ builder.WebHost.ConfigureKestrel((context, options) =>
 {
     var kestrelConfig = context.Configuration.GetSection("Kestrel:Endpoints");
 
-    var httpUrl = kestrelConfig.GetSection("Http:Url").Value;
-    if (!string.IsNullOrEmpty(httpUrl))
-    {
-        options.ListenAnyIP(new Uri(httpUrl).Port);
-    }
-
     var httpsConfig = kestrelConfig.GetSection("Https");
     var httpsUrl = httpsConfig["Url"];
     var certPath = httpsConfig["Certificate:Path"];
