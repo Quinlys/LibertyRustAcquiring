@@ -19,12 +19,13 @@ builder.WebHost.ConfigureKestrel((context, options) =>
 
     var httpsConfig = kestrelConfig.GetSection("Https");
     var httpsUrl = httpsConfig["Url"];
+    var result = int.TryParse(httpsConfig["Port"], out int httpsPort);
     var certPath = httpsConfig["Certificate:Path"];
     var certPassword = httpsConfig["Certificate:Password"];
 
-    if (!string.IsNullOrEmpty(httpsUrl) && !string.IsNullOrEmpty(certPath) && !string.IsNullOrEmpty(certPassword))
+    if (!string.IsNullOrEmpty(httpsUrl) && !string.IsNullOrEmpty(certPath) && !string.IsNullOrEmpty(certPassword) && result)
     {
-        options.ListenAnyIP(new Uri(httpsUrl).Port, listenOptions =>
+        options.ListenAnyIP(httpsPort, listenOptions =>
         {
             listenOptions.UseHttps(certPath, certPassword);
         });
