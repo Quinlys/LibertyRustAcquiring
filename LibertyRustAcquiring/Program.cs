@@ -13,26 +13,26 @@ var builder = WebApplication.CreateBuilder(args);
 
 var assembly = typeof(Program).Assembly;
 
-builder.WebHost.ConfigureKestrel((context, options) =>
-{
-    var kestrelConfig = context.Configuration.GetSection("Kestrel:Endpoints");
+//builder.WebHost.ConfigureKestrel((context, options) =>
+//{
+//    var kestrelConfig = context.Configuration.GetSection("Kestrel:Endpoints");
 
-    var httpsConfig = kestrelConfig.GetSection("Https");
-    var httpsUrl = httpsConfig["Url"];
-    var result = int.TryParse(httpsConfig["Port"], out int httpsPort);
-    var certPath = httpsConfig["Certificate:Path"];
-    var certPassword = httpsConfig["Certificate:Password"];
+//    var httpsConfig = kestrelConfig.GetSection("Https");
+//    var httpsUrl = httpsConfig["Url"];
+//    var result = int.TryParse(httpsConfig["Port"], out int httpsPort);
+//    var certPath = httpsConfig["Certificate:Path"];
+//    var certPassword = httpsConfig["Certificate:Password"];
 
-    Console.WriteLine($"HttpsUrl: {httpsUrl}, Port: {httpsPort} CertPath: {certPath}");
+//    Console.WriteLine($"HttpsUrl: {httpsUrl}, Port: {httpsPort} CertPath: {certPath}");
 
-    if (!string.IsNullOrEmpty(httpsUrl) && !string.IsNullOrEmpty(certPath) && !string.IsNullOrEmpty(certPassword) && result)
-    {
-        options.ListenAnyIP(new Uri(httpsUrl).Port, listenOptions =>
-        {
-            listenOptions.UseHttps(certPath, certPassword);
-        });
-    }
-});
+//    if (!string.IsNullOrEmpty(httpsUrl) && !string.IsNullOrEmpty(certPath) && !string.IsNullOrEmpty(certPassword) && result)
+//    {
+//        options.ListenAnyIP(new Uri(httpsUrl).Port, listenOptions =>
+//        {
+//            listenOptions.UseHttps(certPath, certPassword);
+//        });
+//    }
+//});
 
 builder.Services.AddControllers();
 
