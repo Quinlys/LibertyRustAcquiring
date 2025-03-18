@@ -23,6 +23,8 @@ builder.WebHost.ConfigureKestrel((context, options) =>
     var certPath = httpsConfig["Certificate:Path"];
     var certPassword = httpsConfig["Certificate:Password"];
 
+    Console.WriteLine($"HttpsUrl: {httpsUrl}, Port: {httpsPort} CertPath: {certPath}");
+
     if (!string.IsNullOrEmpty(httpsUrl) && !string.IsNullOrEmpty(certPath) && !string.IsNullOrEmpty(certPassword) && result)
     {
         options.ListenAnyIP(new Uri(httpsUrl).Port, listenOptions =>
