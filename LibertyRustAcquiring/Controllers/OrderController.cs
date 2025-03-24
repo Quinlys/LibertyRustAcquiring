@@ -9,6 +9,7 @@ using System.Security.Cryptography;
 using System.Text;
 using LibertyRustAcquiring.Order.GetOrders;
 using LibertyRustAcquiring.Models.Constants;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LibertyRustAcquiring.Controllers
 {
@@ -95,7 +96,9 @@ namespace LibertyRustAcquiring.Controllers
 
             return Ok(invoiceResponse);
         }
+        
         [HttpPost("webhook")]
+        [AllowAnonymous]
         public async Task<IActionResult> Webhook()
         {
             string requestBody;

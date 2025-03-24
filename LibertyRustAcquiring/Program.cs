@@ -1,7 +1,5 @@
-using CloudinaryDotNet.Actions;
 using LibertyRustAcquiring.Data;
 using LibertyRustAcquiring.Data.Extensions;
-using LibertyRustAcquiring.Models.Entities;
 using LibertyRustAcquiring.Settings;
 using LibertyRustAcquiring.Utils;
 using Microsoft.EntityFrameworkCore;
@@ -36,8 +34,7 @@ builder.Services.AddCors(options =>
 
     options.AddDefaultPolicy(policy =>
     {
-        //policy.WithOrigins(/*"http://test.liberty-rust.com.ua/"*//*"http://localhost:5173"*/);
-        policy.AllowAnyOrigin();
+        policy.WithOrigins("http://test.liberty-rust.com.ua");
         policy.AllowAnyHeader();
         policy.AllowAnyMethod();
         //policy.AllowCredentials();
