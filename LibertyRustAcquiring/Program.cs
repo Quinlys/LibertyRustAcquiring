@@ -11,6 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 var assembly = typeof(Program).Assembly;
 
+builder.WebHost.UseUrls("http://localhost:6060");
+
 builder.Services.AddControllers();
 
 builder.Services.AddSingleton<IPubKeyProvider, PubKeyProvider>();
