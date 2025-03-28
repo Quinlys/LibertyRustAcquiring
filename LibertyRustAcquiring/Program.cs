@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var assembly = typeof(Program).Assembly;
 
-builder.WebHost.UseUrls("http://0.0.0.0:6060");
+builder.WebHost.UseUrls("http://0.0.0.0:6060", "https://0.0.0.0:6061");
 
 builder.Services.AddControllers();
 
