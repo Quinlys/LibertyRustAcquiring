@@ -30,7 +30,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ApplicationDbContext>(opts =>
-        opts.UseSqlite(builder.Configuration.GetConnectionString("Database")));
+        opts.UseMySQL(builder.Configuration.GetConnectionString("Database")!));
 
 builder.Services.AddCors(options =>
 
@@ -39,7 +39,6 @@ builder.Services.AddCors(options =>
         policy.WithOrigins("http://test.liberty-rust.com.ua");
         policy.AllowAnyHeader();
         policy.AllowAnyMethod();
-        //policy.AllowCredentials();
     })
 );
 
