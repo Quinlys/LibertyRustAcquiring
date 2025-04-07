@@ -30,7 +30,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ApplicationDbContext>(opts =>
-        opts.UseSqlite(builder.Configuration.GetConnectionString("Database")));
+        opts.UseMySQL(builder.Configuration.GetConnectionString("Database")!));
 
 builder.Services.AddCors(options =>
 
