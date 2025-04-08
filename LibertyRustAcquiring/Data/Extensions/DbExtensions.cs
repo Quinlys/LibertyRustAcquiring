@@ -11,9 +11,6 @@ namespace LibertyRustAcquiring.Data.Extensions
 
             dbContext.Database.MigrateAsync();
             SeedData.Init(dbContext);
-            //dbContext.Database.EnsureDeleted();
-            //dbContext.Database.EnsureCreated();
-
 
             return app;
         }

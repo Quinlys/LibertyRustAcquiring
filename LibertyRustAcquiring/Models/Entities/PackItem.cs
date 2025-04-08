@@ -1,11 +1,12 @@
 ﻿using LibertyRustAcquiring.Models.Enums;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LibertyRustAcquiring.Models.Entities
 {
     public class PackItem
     {
         public int Id { get; set; }
-        public string Name { get; private set;  }
+        public string Name { get; private set; }
         public int Quantity { get; private set; }
         public ItemType ItemType { get; set; }
 
@@ -18,6 +19,7 @@ namespace LibertyRustAcquiring.Models.Entities
             Quantity = quantity;
         }
 
+        [NotMapped]
         public static List<string> ItemNames = new List<string>
         {
             "sewingkit",
@@ -59,11 +61,13 @@ namespace LibertyRustAcquiring.Models.Entities
             "metal.fragments",
             "metal.refined",
             "cloth",
-            
+
             "workbench1",
             "workbench2",
             "workbench3",
         };
+
+        [NotMapped]
         public static List<string> PrivelegeNames = new List<string>
         {
             "vip",
@@ -71,6 +75,5 @@ namespace LibertyRustAcquiring.Models.Entities
             "sponsor",
             "SkinsALL",
         };
-    }
-
+    };       
 }

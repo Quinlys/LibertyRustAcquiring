@@ -1,7 +1,4 @@
 ﻿using LibertyRustAcquiring.Models.Enums;
-using Microsoft.AspNetCore.Identity;
-using System.Net;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace LibertyRustAcquiring.Data
 {
@@ -28,8 +25,8 @@ namespace LibertyRustAcquiring.Data
                 DetailsENG = "Rate x3. Three times more resources!\r\nEnhanced metabolism. Wake up full and with full HP.\r\nThe [ELITE] prefix on our server. Be proud of your support for the Ukrainian community!\r\nSkip the queue to the server, because you are now an ELITE person ;)\r\nThe /skin command is now available to you. All available game skins are now on our server.\r\nYou can use any skins for buildings. Automatic application of DLC skins for building blocks. Command /bskin\r\nUnbreakable tools. So you don't need to craft dozens of picks and axes anymore, you can get by with just one. (The jackhammer is not included in the list of indestructible tools).\r\nUnbreakable armor and weapons.\r\nUnbreakable access cards. Now you don't need to stock up on them, because you only need one\r\nEndless diving cylinder.\r\nThe ability to quickly sort using a button in the interface menu of drawers and refrigerators.\r\nThe unique /setgenes command allows you to quickly get the desired gene. For this you need a seedling.\r\nUpload an image from a URL to the server and display it on the plate you are currently viewing. (/sil)",
                 Images = new List<string> { "https://res.cloudinary.com/dai2q2olh/image/upload/v1741635272/case12_iscewu.png",
                                             "https://res.cloudinary.com/dai2q2olh/image/upload/v1741635272/el_hover_txurem.png"},
-                Price = 399m,
-                SalePrice = 199m,
+                Price = 449m,
+                SalePrice = 699m,
                 Type = PackType.Privilege,
                 Items = new List<PackItem>()
             };
@@ -50,8 +47,8 @@ namespace LibertyRustAcquiring.Data
                 DetailsENG = "Metabolism. Wake up always full.\r\nPrefix [VIP] on our server. Be proud of your support for the Ukrainian community!\r\nSkip the queue to the server, because you are now a VIP ;)\r\nUnbreakable tools. So you don't need to craft dozens of picks and axes anymore, you can do with just one. (The jackhammer is not included in the list of unbreakable tools).\r\nUnbreakable armor and weapons.\r\nUnbreakable access cards. Now you don't need to stock up on them, because you only need one\r\nEndless diving cylinder.\r\nThe ability to quickly sort using the button in the interface menu of drawers and refrigerators.",
                 Images = new List<string> {"https://res.cloudinary.com/dai2q2olh/image/upload/v1741635317/case11_pbiwdp.png",
                                            "https://res.cloudinary.com/dai2q2olh/image/upload/v1741635317/vip_hover_mkismj.png"},
-                Price = 199m,
-                SalePrice = 99m,
+                Price = 249m,
+                SalePrice = 449m,
                 Type = PackType.Privilege,
                 Items = new List<PackItem>()
             };
@@ -73,7 +70,7 @@ namespace LibertyRustAcquiring.Data
                 Images = new List<string> {"https://res.cloudinary.com/dai2q2olh/image/upload/v1741635394/case10_inv3ao.png",
                                            "https://res.cloudinary.com/dai2q2olh/image/upload/v1741635394/sp_hover_flmidy.png"},
                 Price = 599m,
-                SalePrice = 299m,
+                SalePrice = 899m,
                 Type = PackType.Privilege,
                 Items = new List<PackItem>()
             };
@@ -96,7 +93,7 @@ namespace LibertyRustAcquiring.Data
                 Images = new List<string> {"https://res.cloudinary.com/dai2q2olh/image/upload/v1741635539/case9_axaehk.png",
                                            "https://res.cloudinary.com/dai2q2olh/image/upload/v1741635540/skins_hover_nhlimm.png" },
                 Price = 159m,
-                SalePrice = 79m,
+                SalePrice = 229m,
                 Type = PackType.Skins,
                 Items = new List<PackItem>()
             };
@@ -116,8 +113,8 @@ namespace LibertyRustAcquiring.Data
                 DetailsENG = "By purchasing this set, you will instantly be able to craft any possible item on the Liberty Rust server. All studies will be open until the next global vype. You can check out the vape calendar in our discord channel.",
                 Images = new List<string> {"https://res.cloudinary.com/dai2q2olh/image/upload/v1741635429/case8_qadx4q.png",
                                            "https://res.cloudinary.com/dai2q2olh/image/upload/v1741635429/unlock_hover_hng8ha.png" },
-                Price = 399m,
-                SalePrice = 199m,
+                Price = 499m,
+                SalePrice = 749m,
                 Type = PackType.Blueprints,
                 Items = new List<PackItem>()
             };
@@ -136,8 +133,8 @@ namespace LibertyRustAcquiring.Data
                 Details = "60 наборів для шиття\r\n60 шестерень\r\n45 металевих лез\r\n45 дорожніх знаків\r\n45 пружин\r\n45 металевих труб\r\n30 мотузок\r\n15 корпусів напівавтомату\r\n10 корпусів пістолету-гвинтівки\r\n10 корпусів гвинтівки\r\n10 старих мікросхем",
                 DetailsENG = "60 sewing kits\r\n60 gears\r\n45 metal blades\r\n45 road signs\r\n45 springs\r\n45 metal pipes\r\n30 ropes\r\n15 semi-automatic rifle cases\r\n10 submachine gun cases\r\n10 rifle cases\r\n10 old microcircuits",
                 Images = new List<string> { "https://res.cloudinary.com/dai2q2olh/image/upload/v1741635615/case1_sapbso.png" },
-                Price = 159m,
-                SalePrice = 79m,
+                Price = 179m,
+                SalePrice = 329m,
                 Type = PackType.Resource,
                 Items = new List<PackItem>()
             };
@@ -166,8 +163,8 @@ namespace LibertyRustAcquiring.Data
                 Details = "630 000 каменю\r\n20 000 дерева\r\n10 000 металевих фрагментів\r\n300 металу високої якості\r\n1000 тканини",
                 DetailsENG = "630 000 stone\r\n20,000 pieces of wood\r\n10,000 metal fragments\r\n300 high quality metal\r\n1000 fabric",
                 Images = new List<string> { "https://res.cloudinary.com/dai2q2olh/image/upload/v1741635615/case2_egxnw0.png" },
-                Price = 139m,
-                SalePrice = 69m,
+                Price = 159m,
+                SalePrice = 299m,
                 Type = PackType.Resource,
                 Items = new List<PackItem>()
             };
@@ -190,8 +187,8 @@ namespace LibertyRustAcquiring.Data
                 Details = "Три відбійних молотки ( Бур )\r\nТри бензопили\r\n5 саморобних льодорубів\r\n5 саморобних сокир\r\n500 низькоякісного палива\r\n3 рудних чаї найвищої якості\r\n3 чаї для фарма дерева найкращої якості",
                 DetailsENG = "Three jackhammers (drills)\r\nThree chainsaws\r\n5 homemade ice axes\r\n5 homemade axes\r\n500 liters of low-quality fuel\r\n3 ore teas of the highest quality\r\n3 pharma tree teas of the highest quality",
                 Images = new List<string> { "https://res.cloudinary.com/dai2q2olh/image/upload/v1741635615/case3_jr4qxp.png" },
-                Price = 139m,
-                SalePrice = 69m,
+                Price = 159m,
+                SalePrice = 299m,
                 Type = PackType.Resource,
                 Items = new List<PackItem>()
             };
@@ -216,8 +213,8 @@ namespace LibertyRustAcquiring.Data
                 Details = "20 високих зовнішніх кам'яних стін\r\n1 високі зовнішні кам'яні ворота\r\n2 великі печі\r\n1 нафтопереробна станція\r\n1 сторожова вежа",
                 DetailsENG = "20 high outer stone walls\r\n1 high outer stone gate\r\n2 large furnaces\r\n1 oil refinery\r\n1 watchtower.",
                 Images = new List<string> { "https://res.cloudinary.com/dai2q2olh/image/upload/v1741635618/case4_nq06cr.png" },
-                Price = 159m,
-                SalePrice = 79m,
+                Price = 179m,
+                SalePrice = 329m,
                 Type = PackType.Resource,
                 Items = new List<PackItem>()
             };
@@ -240,8 +237,8 @@ namespace LibertyRustAcquiring.Data
                 Details = "П'ять турелей.\r\nОдне ППО.\r\nСотня ракет для ППО.\r\nВітряк для генерування електроенергії.",
                 DetailsENG = "Five turrets.\r\nOne air defense system.\r\nOne hundred missiles for air defense.\r\nA windmill to generate electricity.",
                 Images = new List<string> { "https://res.cloudinary.com/dai2q2olh/image/upload/v1741635618/case5_qnpcaj.png" },
-                Price = 159m,
-                SalePrice = 79m,
+                Price = 179m,
+                SalePrice = 329m,
                 Type = PackType.Resource,
                 Items = new List<PackItem>()
             };
@@ -263,8 +260,8 @@ namespace LibertyRustAcquiring.Data
                 Details = "Придбавши набір ви отримаєте по одному верстату кожного рівню.",
                 DetailsENG = "By purchasing the set, you will receive one machine of each level.",
                 Images = new List<string> { "https://res.cloudinary.com/dai2q2olh/image/upload/v1741635619/case6_r4qqxv.png" },
-                Price = 119m,
-                SalePrice = 59m,
+                Price = 149m,
+                SalePrice = 299m,
                 Type = PackType.Resource,
                 Items = new List<PackItem>()
             };
@@ -285,8 +282,8 @@ namespace LibertyRustAcquiring.Data
                 Details = "Нафтопереробний завод.\r\n500 сирої нафти.\r\n1000 палива низької якості.\r\n20 бочок з дизельним паливом.",
                 DetailsENG = "Oil refinery.\r\n500 crude oil.\r\n1000 low quality fuel.\r\n20 barrels of diesel fuel.",
                 Images = new List<string> { "https://res.cloudinary.com/dai2q2olh/image/upload/v1741635622/case7_owtg41.png" },
-                Price = 139m,
-                SalePrice = 69m,
+                Price = 159m,
+                SalePrice = 299m,
                 Type = PackType.Resource,
                 Items = new List<PackItem>()
             };
