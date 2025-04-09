@@ -55,7 +55,7 @@ if (app.Environment.IsDevelopment())
 
 //app.UseHttpsRedirection();
 
-app.UseMigration();
+//app.UseMigration();
 
 app.UseCors();
 
