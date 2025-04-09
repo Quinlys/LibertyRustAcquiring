@@ -36,11 +36,9 @@ builder.Services.AddCors(options =>
 
     options.AddDefaultPolicy(policy =>
     {
-        //policy.WithOrigins("http://test.liberty-rust.com.ua");
-        policy.AllowAnyOrigin();
+        policy.WithOrigins("http://test.liberty-rust.com.ua", "https://test.liberty-rust.com.ua");
         policy.AllowAnyHeader();
         policy.AllowAnyMethod();
-        //policy.AllowCredentials();
     })
 );
 
