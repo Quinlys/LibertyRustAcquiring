@@ -1,11 +1,11 @@
 ﻿namespace LibertyRustAcquiring.Exceptions
 {
-    public class ObjectIsNullException<T> : Exception
+    public class ObjectIsNullException : Exception
     {
         private readonly string typeName;
-        public ObjectIsNullException() : base()
+        public ObjectIsNullException(string type) : base()
         {
-            typeName = typeof(T).Name;
+            typeName = type;
         }
 
         public override string Message => $"Object of {typeName} type is not found.";

@@ -1,5 +1,6 @@
 using LibertyRustAcquiring.Data;
 using LibertyRustAcquiring.Data.Extensions;
+using LibertyRustAcquiring.Exceptions.ExceptionHandlers;
 using LibertyRustAcquiring.Settings;
 using LibertyRustAcquiring.Utils;
 using Microsoft.EntityFrameworkCore;
@@ -32,6 +33,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(opts =>
         opts.UseMySQL(builder.Configuration.GetConnectionString("Database")!));
 
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+
 builder.Services.AddCors(options =>
 
     options.AddDefaultPolicy(policy =>
@@ -56,6 +59,8 @@ if (app.Environment.IsDevelopment())
 //app.UseMigration();
 
 app.UseCors();
+
+app.UseExceptionHandler(options => { });
 
 app.MapControllers();
 
@@ -117,9 +122,9 @@ app.MapPost("/send-command", async (IConfiguration configuration, RconCommandReq
 
     var serverInfo = new ServerInfo
     {
-        Hostname = configuration[$"{request.ServerName}:Ip"] ?? throw new ObjectIsNullException<ServerInfo>(),
-        RconPort = configuration[$"{request.ServerName}:Port"] ?? throw new ObjectIsNullException<ServerInfo>(),
-        RconPassword = configuration[$"{request.ServerName}:Password"] ?? throw new ObjectIsNullException<ServerInfo>(),
+        Hostname = configuration[$"{request.ServerName}:Ip"] ?? throw new ObjectIsNullException(typeof(ServerInfo).Name),
+        RconPort = configuration[$"{request.ServerName}:Port"] ?? throw new ObjectIsNullException(typeof(ServerInfo).Name),
+        RconPassword = configuration[$"{request.ServerName}:Password"] ?? throw new ObjectIsNullException(typeof(ServerInfo).Name),
     };
 
     //var serverInfo = new ServerInfo

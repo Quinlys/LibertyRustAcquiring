@@ -40,11 +40,20 @@ namespace LibertyRustAcquiring.Controllers
             _xtoken = configuration["Monobank:XToken"]!;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAll() 
+        public async Task<IActionResult> GetAll()
         {
             var orders = await _sender.Send(new GetOrdersQuery());
 
             return Ok(orders);
+        }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetByInvoiceId(string invoiceId)
+        {
+            var result = await _sender.Send(new FindOrderByInvoiceIdQuery(invoiceId));
+
+            _logger.LogInformation("Order with InvoiceId: {invoiceId} has status {status}", invoiceId, result.Status);
+
+            return Ok(result);
         }
 
         [HttpPost("create-invoice")]
@@ -88,7 +97,7 @@ namespace LibertyRustAcquiring.Controllers
             if (!response.IsSuccessStatusCode) return BadRequest("Monobank return null as a response or response was not successfull.");
             
             InvoiceCreateResponse invoiceResponse = await response.Content.ReadFromJsonAsync<InvoiceCreateResponse>()
-                ?? throw new ObjectIsNullException<InvoiceCreateResponse>();
+                ?? throw new ObjectIsNullException(typeof(InvoiceCreateResponse).Name);
 
             var result = await _sender.Send(new CreateOrderCommand(request.SteamId, request.Server, invoiceResponse.InvoiceId, packIds));
 
@@ -147,7 +156,7 @@ namespace LibertyRustAcquiring.Controllers
             try
             {
                 payload = JsonSerializer.Deserialize<MonobankWebhookPayload>(requestBody)
-                    ?? throw new ObjectIsNullException<MonobankWebhookPayload>();
+                    ?? throw new ObjectIsNullException(typeof(MonobankWebhookPayload).Name);
 
                 if (payload == null)
                 {

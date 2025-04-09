@@ -1,5 +1,7 @@
 ﻿using LibertyRustAcquiring.Data;
+using LibertyRustAcquiring.DTOs.Monobank;
 using Microsoft.EntityFrameworkCore;
+using Mysqlx.Crud;
 
 namespace LibertyRustAcquiring.Order.FindOrderByInvoiceId
 {
@@ -13,7 +15,7 @@ namespace LibertyRustAcquiring.Order.FindOrderByInvoiceId
 
             if(result is null)
             {
-                throw new ObjectIsNullException<Models.Entities.Order>();
+                throw new ObjectIsNullException(typeof(Models.Entities.Order).Name);
             }
 
             return result;
