@@ -31,7 +31,7 @@ namespace LibertyRustAcquiring.Packs.GetPack
                 )
                 .FirstAsync();
 
-            if (pack is null) throw new ObjectIsNullException<Pack>();
+            if (pack is null) throw new ObjectIsNullException(typeof(Pack).Name);
 
             return pack;
         }

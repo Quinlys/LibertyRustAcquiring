@@ -58,9 +58,9 @@ namespace LibertyRustAcquiring.Order.GetOrderPrice
         {
             var serverInfo = new ServerInfo
             {
-                Hostname = configuration[$"{server}:Ip"]! ?? throw new ObjectIsNullException<ServerInfo>(),
-                RconPort = configuration[$"{server}:Port"]! ?? throw new ObjectIsNullException<ServerInfo>(),
-                RconPassword = configuration[$"{server}:Password"]! ?? throw new ObjectIsNullException<ServerInfo>()
+                Hostname = configuration[$"{server}:Ip"]! ?? throw new ObjectIsNullException(typeof(ServerInfo).Name),
+                RconPort = configuration[$"{server}:Port"]! ?? throw new ObjectIsNullException(typeof(ServerInfo).Name),
+                RconPassword = configuration[$"{server}:Password"]! ?? throw new ObjectIsNullException(typeof(ServerInfo).Name)
             };
 
             var online = await CheckPlayerOnline(serverInfo, steamId);

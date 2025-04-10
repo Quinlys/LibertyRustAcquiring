@@ -74,7 +74,7 @@ namespace LibertyRustAcquiring.Order.UpdateOrderStatus
                 var pack = packs.FirstOrDefault(p => p.Id == group.PackId);
                 if (pack is null || pack.Items is null)
                 {
-                    throw new ObjectIsNullException<Pack>();
+                    throw new ObjectIsNullException(typeof(Pack).Name);
                 }
 
                 string command = string.Empty;
