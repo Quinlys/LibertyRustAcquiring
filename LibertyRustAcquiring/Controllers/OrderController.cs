@@ -46,7 +46,7 @@ namespace LibertyRustAcquiring.Controllers
 
             return Ok(orders);
         }
-        [HttpGet("{id}")]
+        [HttpGet("{invoiceId}")]
         public async Task<IActionResult> GetByInvoiceId(string invoiceId)
         {
             var result = await _sender.Send(new FindOrderByInvoiceIdQuery(invoiceId));
